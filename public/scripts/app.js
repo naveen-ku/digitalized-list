@@ -9,6 +9,14 @@ var user = {
   age: "22",
   location: "India"
 };
+
+function getLocation(location) {
+  if (location) {
+    return location;
+  } else {
+    return 'Unknown';
+  }
+}
 var template = React.createElement(
   "div",
   null,
@@ -35,7 +43,7 @@ var template = React.createElement(
       "li",
       null,
       "Location: ",
-      user.location
+      getLocation(user.location)
     )
   )
 );
