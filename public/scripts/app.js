@@ -12,9 +12,16 @@ var user = {
 
 function getLocation(location) {
   if (location) {
-    return location;
+    return React.createElement(
+      "li",
+      null,
+      "Location: ",
+      location
+    );
   } else {
-    return 'Unknown';
+    /*If condition is not satisfied then by default undefined is returned, 
+    so we do not need to explicitely define else block.*/
+    return undefined;
   }
 }
 var template = React.createElement(
@@ -39,12 +46,7 @@ var template = React.createElement(
       "Age: ",
       user.age
     ),
-    React.createElement(
-      "li",
-      null,
-      "Location: ",
-      getLocation(user.location)
-    )
+    getLocation(user.location)
   )
 );
 

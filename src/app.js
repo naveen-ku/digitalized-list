@@ -9,11 +9,13 @@ var user = {
 };
 
 function getLocation(location) {
-    if(location){
-        return location;
-    } else {
-        return 'Unknown'
-    }
+  if (location) {
+    return <li>Location: {location}</li>;
+  } else {
+    /*If condition is not satisfied then by default undefined is returned, 
+    so we do not need to explicitely define else block.*/
+    return undefined;
+  }
 }
 var template = (
   <div>
@@ -22,7 +24,7 @@ var template = (
     <ul>
       <h3>{user.name}</h3>
       <li>Age: {user.age}</li>
-      <li>Location: {getLocation(user.location)}</li>
+      {getLocation(user.location)}
     </ul>
   </div>
 );
