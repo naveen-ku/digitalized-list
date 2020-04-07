@@ -29,52 +29,86 @@ console.log("App is running");
 //   </div>
 // );
 
-var count = 0;
-var addOne = function addOne() {
-  // console.log("Add one");
-  count++;
-  renderCounterApp();
+var app = {
+  title: "ToDo Mix",
+  subtitle: "Digitalize the day to day record.",
+  options: []
 };
 
-var minusOne = function minusOne() {
-  // console.log("Minus one");
-  count--;
-  renderCounterApp();
-};
-var reset = function reset() {
-  // console.log("Reset");
-  count = 0;
-  renderCounterApp();
+var onFormSubmit = function onFormSubmit(event) {
+  event.preventDefault();
+  // console.log(event.target.elements[0].value)
+  // ---------------OR------------------
+  // console.log(event.target.elements.option.value) //Because elements are indexed by names, so we can directy access them by name.
+  var option = event.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    event.target.elements.option.value = '';
+  }
+  renderList();
 };
 
-var renderCounterApp = function renderCounterApp() {
-  var templateTwo = React.createElement(
+var onRemoveAll = function onRemoveAll() {
+  app.options = [];
+  renderList();
+};
+
+var renderList = function renderList() {
+  var template = React.createElement(
     "div",
     null,
     React.createElement(
       "h1",
       null,
-      "Count: ",
-      count
+      app.title
+    ),
+    app.subtitle && React.createElement(
+      "p",
+      null,
+      app.subtitle
+    ),
+    React.createElement(
+      "p",
+      null,
+      app.options.length > 0 ? 'Here are your options' : 'No options'
+    ),
+    React.createElement(
+      "p",
+      null,
+      app.options.length
     ),
     React.createElement(
       "button",
-      { onClick: addOne },
-      "+1"
+      { onClick: onRemoveAll },
+      "Remove All"
     ),
     React.createElement(
-      "button",
-      { onClick: minusOne },
-      "-1"
+      "ol",
+      null,
+      React.createElement(
+        "li",
+        null,
+        "Item one"
+      ),
+      React.createElement(
+        "li",
+        null,
+        "Item two"
+      )
     ),
     React.createElement(
-      "button",
-      { onClick: reset },
-      "Reset"
+      "form",
+      { onSubmit: onFormSubmit },
+      React.createElement("input", { type: "text", name: "option" }),
+      React.createElement(
+        "button",
+        null,
+        "Submit"
+      )
     )
   );
 
-  ReactDOM.render(templateTwo, document.getElementById("root"));
+  ReactDOM.render(template, document.getElementById("root"));
 };
 
-renderCounterApp();
+renderList();
