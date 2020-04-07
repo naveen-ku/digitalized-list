@@ -28,58 +28,30 @@ console.log("App is running");
 // );
 
 const app = {
-  title: "ToDo Mix",
-  subtitle: "Digitalize the day to day record.",
-  options: [],
+  heading: "Visibility Toggle",
+  buttonText: "Show details",
+  text: "hello how are you",
 };
 
-const onFormSubmit = (event) => {
-  event.preventDefault();
-  // console.log(event.target.elements[0].value)
-  // ---------------OR------------------
-  // console.log(event.target.elements.option.value) //Because elements are indexed by names, so we can directy access them by name.
-  const option = event.target.elements.option.value;
-  if (option) {
-    app.options.push(option);
-    event.target.elements.option.value = "";
+const onClickButton = (event) => {
+  if (app.buttonText === "Show details") {
+    app.buttonText = "Hide details";
+  } else {
+    app.buttonText = "Show details";
   }
-  renderList();
+  renderVisibilityToggle();
 };
 
-const onRemoveAll = () => {
-  app.options = [];
-  renderList();
-};
-const onMakeDecision = () => {
-  const randumNum = Math.floor(Math.random() * app.options.length);
-  const option = app.options[randumNum];
-  alert(option);
-};
-
-const renderList = () => {
+const renderVisibilityToggle = () => {
   const template = (
     <div>
-      <h1>{app.title}</h1>
-      {app.subtitle && <p>{app.subtitle}</p>}
-      <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
-      {/* <p>{app.options.length}</p> */}
-      <button disabled={app.options.length === 0} onClick={onMakeDecision}>
-        What shoul I do?
-      </button>
-      <button onClick={onRemoveAll}>Remove All</button>
-      <ol>
-        {app.options.map((option) => {
-          return <li key={option}>{option}</li>;
-        })}
-      </ol>
-      <form onSubmit={onFormSubmit}>
-        <input type="text" name="option" />
-        <button>Submit</button>
-      </form>
+      <h1>{app.heading}</h1>
+      <button onClick={onClickButton}>{app.buttonText}</button>
+      {app.buttonText ==="Hide details"? <p>{app.text}</p>:"" }
     </div>
   );
 
   ReactDOM.render(template, document.getElementById("root"));
 };
 
-renderList();
+renderVisibilityToggle();

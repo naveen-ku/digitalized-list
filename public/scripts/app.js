@@ -30,87 +30,42 @@ console.log("App is running");
 // );
 
 var app = {
-  title: "ToDo Mix",
-  subtitle: "Digitalize the day to day record.",
-  options: []
+  heading: "Visibility Toggle",
+  buttonText: "Show details",
+  text: "hello how are you"
 };
 
-var onFormSubmit = function onFormSubmit(event) {
-  event.preventDefault();
-  // console.log(event.target.elements[0].value)
-  // ---------------OR------------------
-  // console.log(event.target.elements.option.value) //Because elements are indexed by names, so we can directy access them by name.
-  var option = event.target.elements.option.value;
-  if (option) {
-    app.options.push(option);
-    event.target.elements.option.value = "";
+var onClickButton = function onClickButton(event) {
+  if (app.buttonText === "Show details") {
+    app.buttonText = "Hide details";
+  } else {
+    app.buttonText = "Show details";
   }
-  renderList();
+  renderVisibilityToggle();
 };
 
-var onRemoveAll = function onRemoveAll() {
-  app.options = [];
-  renderList();
-};
-var onMakeDecision = function onMakeDecision() {
-  var randumNum = Math.floor(Math.random() * app.options.length);
-  var option = app.options[randumNum];
-  alert(option);
-};
-
-var renderList = function renderList() {
+var renderVisibilityToggle = function renderVisibilityToggle() {
   var template = React.createElement(
     "div",
     null,
     React.createElement(
       "h1",
       null,
-      app.title
-    ),
-    app.subtitle && React.createElement(
-      "p",
-      null,
-      app.subtitle
-    ),
-    React.createElement(
-      "p",
-      null,
-      app.options.length > 0 ? "Here are your options" : "No options"
+      app.heading
     ),
     React.createElement(
       "button",
-      { disabled: app.options.length === 0, onClick: onMakeDecision },
-      "What shoul I do?"
+      { onClick: onClickButton },
+      app.buttonText
     ),
-    React.createElement(
-      "button",
-      { onClick: onRemoveAll },
-      "Remove All"
-    ),
-    React.createElement(
-      "ol",
+    app.buttonText === "Hide details" ? React.createElement(
+      "p",
       null,
-      app.options.map(function (option) {
-        return React.createElement(
-          "li",
-          { key: option },
-          option
-        );
-      })
-    ),
-    React.createElement(
-      "form",
-      { onSubmit: onFormSubmit },
-      React.createElement("input", { type: "text", name: "option" }),
-      React.createElement(
-        "button",
-        null,
-        "Submit"
-      )
-    )
+      app.text
+    ) : ""
   );
 
   ReactDOM.render(template, document.getElementById("root"));
 };
 
-renderList();
+renderVisibilityToggle();
