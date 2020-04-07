@@ -29,43 +29,38 @@ console.log("App is running");
 //   </div>
 // );
 
-var app = {
-  heading: "Visibility Toggle",
-  buttonText: "Show details",
-  text: "hello how are you"
+var visibility = false;
+var toggleVisibility = function toggleVisibility() {
+  visibility = !visibility;
+  render();
 };
 
-var onClickButton = function onClickButton(event) {
-  if (app.buttonText === "Show details") {
-    app.buttonText = "Hide details";
-  } else {
-    app.buttonText = "Show details";
-  }
-  renderVisibilityToggle();
-};
-
-var renderVisibilityToggle = function renderVisibilityToggle() {
+var render = function render() {
   var template = React.createElement(
     "div",
     null,
     React.createElement(
       "h1",
       null,
-      app.heading
+      "Visibility Toggle"
     ),
     React.createElement(
       "button",
-      { onClick: onClickButton },
-      app.buttonText
+      { onClick: toggleVisibility },
+      visibility ? "Hide details" : "Show details"
     ),
-    app.buttonText === "Hide details" ? React.createElement(
-      "p",
+    visibility && React.createElement(
+      "div",
       null,
-      app.text
-    ) : ""
+      React.createElement(
+        "p",
+        null,
+        "Hello how are you?"
+      )
+    )
   );
 
   ReactDOM.render(template, document.getElementById("root"));
 };
 
-renderVisibilityToggle();
+render();
