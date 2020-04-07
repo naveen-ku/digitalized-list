@@ -43,7 +43,7 @@ var onFormSubmit = function onFormSubmit(event) {
   var option = event.target.elements.option.value;
   if (option) {
     app.options.push(option);
-    event.target.elements.option.value = '';
+    event.target.elements.option.value = "";
   }
   renderList();
 };
@@ -70,7 +70,7 @@ var renderList = function renderList() {
     React.createElement(
       "p",
       null,
-      app.options.length > 0 ? 'Here are your options' : 'No options'
+      app.options.length > 0 ? "Here are your options" : "No options"
     ),
     React.createElement(
       "p",
@@ -85,16 +85,13 @@ var renderList = function renderList() {
     React.createElement(
       "ol",
       null,
-      React.createElement(
-        "li",
-        null,
-        "Item one"
-      ),
-      React.createElement(
-        "li",
-        null,
-        "Item two"
-      )
+      app.options.map(function (option) {
+        return React.createElement(
+          "li",
+          { key: option },
+          option
+        );
+      })
     ),
     React.createElement(
       "form",

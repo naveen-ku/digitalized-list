@@ -38,38 +38,40 @@ const onFormSubmit = (event) => {
   // console.log(event.target.elements[0].value)
   // ---------------OR------------------
   // console.log(event.target.elements.option.value) //Because elements are indexed by names, so we can directy access them by name.
-  const option = event.target.elements.option.value
-  if(option){
-    app.options.push(option)
-    event.target.elements.option.value = '';
+  const option = event.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    event.target.elements.option.value = "";
   }
   renderList();
-}
+};
 
 const onRemoveAll = () => {
-  app.options=[];
+  app.options = [];
   renderList();
-}
+};
 
 const renderList = () => {
-  const template = <div>
-  <h1>{app.title}</h1>
-  {app.subtitle && <p>{app.subtitle}</p>}
-  <p>{app.options.length >0 ?'Here are your options': 'No options'}</p>
-  <p>{app.options.length}</p>
-  <button onClick={onRemoveAll}>Remove All</button>
-  <ol>
-    <li>Item one</li>
-    <li>Item two</li>
-  </ol>
-  <form onSubmit={onFormSubmit}>
-    <input type="text" name="option"/>
-    <button>Submit</button>
-  </form>
-</div>;
+  const template = (
+    <div>
+      <h1>{app.title}</h1>
+      {app.subtitle && <p>{app.subtitle}</p>}
+      <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
+      <p>{app.options.length}</p>
+      <button onClick={onRemoveAll}>Remove All</button>
+      <ol>
+        {app.options.map((option) => {
+          return <li key ={option}>{option}</li>;
+        })}
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option" />
+        <button>Submit</button>
+      </form>
+    </div>
+  );
 
-ReactDOM.render(template, document.getElementById("root"));
-
-}
+  ReactDOM.render(template, document.getElementById("root"));
+};
 
 renderList();
