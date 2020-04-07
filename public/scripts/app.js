@@ -3,51 +3,67 @@
 console.log("App is running");
 
 // JSX - JavaScript XML
+// const user = {
+//   name: "Naveen",
+//   age: "22",
+//   location: "India",
+// };
 
-var user = {
-  name: "Naveen",
-  age: "22",
-  location: "India"
+// const getLocation = (location) => {
+//   if (location) {
+//     return <li>Location: {location}</li>;
+//   } else {
+//     /*If condition is not satisfied then by default undefined is returned, so we do not need to explicitely define else block.*/
+//     return undefined;
+//   }
+// };
+// const template = (
+//   <div>
+//     <h1>ToDo Mix</h1>
+
+//     <ul>
+//       <h3>{user.name}</h3>
+//       <li>Age: {user.age}</li>
+//       {getLocation(user.location)}
+//     </ul>
+//   </div>
+// );
+
+var count = 0;
+var addOne = function addOne() {
+  console.log("Add one");
 };
 
-function getLocation(location) {
-  if (location) {
-    return React.createElement(
-      "li",
-      null,
-      "Location: ",
-      location
-    );
-  } else {
-    /*If condition is not satisfied then by default undefined is returned, 
-    so we do not need to explicitely define else block.*/
-    return undefined;
-  }
-}
-var template = React.createElement(
+var minusOne = function minusOne() {
+  console.log("Minus one");
+};
+var reset = function reset() {
+  console.log("Reset");
+};
+var templateTwo = React.createElement(
   "div",
   null,
   React.createElement(
     "h1",
     null,
-    "ToDo Mix"
+    "Count: ",
+    count
   ),
   React.createElement(
-    "ul",
-    null,
-    React.createElement(
-      "h3",
-      null,
-      user.name
-    ),
-    React.createElement(
-      "li",
-      null,
-      "Age: ",
-      user.age
-    ),
-    getLocation(user.location)
+    "button",
+    { onClick: addOne },
+    "+1"
+  ),
+  React.createElement(
+    "button",
+    { onClick: minusOne },
+    "-1"
+  ),
+  React.createElement(
+    "button",
+    { onClick: reset },
+    "Reset"
   )
 );
 
-ReactDOM.render(template, document.getElementById("root"));
+ReactDOM.render(templateTwo, document.getElementById("root"));
