@@ -1,8 +1,9 @@
 class ToDoMixApp extends React.Component {
   render() {
+    const title ="ToDo Mix App"
     return (
       <div>
-        <Header title="ToDo Mix App"/>
+        <Header title={title}/>
         <Action />
         <Options />
         <AddOption />

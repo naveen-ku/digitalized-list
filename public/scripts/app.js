@@ -20,10 +20,11 @@ var ToDoMixApp = function (_React$Component) {
   _createClass(ToDoMixApp, [{
     key: "render",
     value: function render() {
+      var title = "ToDo Mix App";
       return React.createElement(
         "div",
         null,
-        React.createElement(Header, { title: "ToDo Mix App" }),
+        React.createElement(Header, { title: title }),
         React.createElement(Action, null),
         React.createElement(Options, null),
         React.createElement(AddOption, null)
