@@ -1,54 +1,57 @@
-console.log("App is running");
+class ToDoMixApp extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <Action />
+        <Options />
+        <AddOption />
+      </div>
+    );
+  }
+}
 
-// JSX - JavaScript XML
-// const user = {
-//   name: "Naveen",
-//   age: "22",
-//   location: "India",
-// };
+class Header extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>ToDo Mix</h1>
+        <h2>Digitalize the day to day record.</h2>
+      </div>
+    );
+  }
+}
 
-// const getLocation = (location) => {
-//   if (location) {
-//     return <li>Location: {location}</li>;
-//   } else {
-//     /*If condition is not satisfied then by default undefined is returned, so we do not need to explicitely define else block.*/
-//     return undefined;
-//   }
-// };
-// const template = (
-//   <div>
-//     <h1>ToDo Mix</h1>
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button>What should I do?</button>
+      </div>
+    );
+  }
+}
+class Option extends React.Component {
+  render() {
+    return <div>Option Component</div>;
+  }
+}
 
-//     <ul>
-//       <h3>{user.name}</h3>
-//       <li>Age: {user.age}</li>
-//       {getLocation(user.location)}
-//     </ul>
-//   </div>
-// );
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
+        Options Component
+        <Option />
+      </div>
+    );
+  }
+}
 
-let visibility = false;
-const toggleVisibility = () => {
-  visibility = !visibility;
-  render();
-};
+class AddOption extends React.Component {
+  render() {
+    return <div>Add Option Component</div>;
+  }
+}
 
-const render = () => {
-  const template = (
-    <div>
-      <h1>Visibility Toggle</h1>
-      <button onClick={toggleVisibility}>
-        {visibility ? "Hide details" : "Show details"}
-      </button>
-      { visibility && (
-        <div>
-          <p>Hello how are you?</p>
-        </div>
-      )}
-    </div>
-  );
-
-  ReactDOM.render(template, document.getElementById("root"));
-};
-
-render();
+ReactDOM.render(<ToDoMixApp />, document.getElementById("root"));
