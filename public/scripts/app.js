@@ -81,6 +81,11 @@ var Action = function (_React$Component3) {
   }
 
   _createClass(Action, [{
+    key: "onRandomPick",
+    value: function onRandomPick() {
+      alert("onRandomPick");
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
@@ -88,7 +93,7 @@ var Action = function (_React$Component3) {
         null,
         React.createElement(
           "button",
-          null,
+          { onClick: this.onRandomPick },
           "What should I do?"
         )
       );
@@ -108,6 +113,11 @@ var Options = function (_React$Component4) {
   }
 
   _createClass(Options, [{
+    key: "handleRemoveAll",
+    value: function handleRemoveAll() {
+      alert("Remove All");
+    }
+  }, {
     key: "render",
     value: function render() {
       // console.log(this.props.options);
@@ -116,7 +126,11 @@ var Options = function (_React$Component4) {
       return React.createElement(
         "div",
         null,
-        "Options Component",
+        React.createElement(
+          "button",
+          { onClick: this.handleRemoveAll },
+          "Remove All"
+        ),
         optionsList.map(function (option) {
           return React.createElement(Option, { key: option, optionText: option });
         })
@@ -160,12 +174,30 @@ var AddOption = function (_React$Component6) {
   }
 
   _createClass(AddOption, [{
+    key: "submitForm",
+    value: function submitForm(event) {
+      event.preventDefault();
+      var dataField = event.target.elements.option.value.trim();
+      if (dataField) {
+        alert(dataField);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
         "div",
         null,
-        "Add Option Component"
+        React.createElement(
+          "form",
+          { onSubmit: this.submitForm },
+          React.createElement("input", { type: "text", name: "option" }),
+          React.createElement(
+            "button",
+            null,
+            "Submit"
+          )
+        )
       );
     }
   }]);
