@@ -21,12 +21,15 @@ var ToDoMixApp = function (_React$Component) {
     key: "render",
     value: function render() {
       var title = "ToDo Mix App";
+      var subtitle = "Digitalize the day to day record.";
+      var options = ["One", "Two", "Three"];
+
       return React.createElement(
         "div",
         null,
-        React.createElement(Header, { title: title }),
+        React.createElement(Header, { title: title, subtitle: subtitle }),
         React.createElement(Action, null),
-        React.createElement(Options, null),
+        React.createElement(Options, { options: options }),
         React.createElement(AddOption, null)
       );
     }
@@ -59,7 +62,7 @@ var Header = function (_React$Component2) {
         React.createElement(
           "h2",
           null,
-          "Digitalize the day to day record."
+          this.props.subtitle
         )
       );
     }
@@ -95,8 +98,37 @@ var Action = function (_React$Component3) {
   return Action;
 }(React.Component);
 
-var Option = function (_React$Component4) {
-  _inherits(Option, _React$Component4);
+var Options = function (_React$Component4) {
+  _inherits(Options, _React$Component4);
+
+  function Options() {
+    _classCallCheck(this, Options);
+
+    return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+  }
+
+  _createClass(Options, [{
+    key: "render",
+    value: function render() {
+      // console.log(this.props.options);
+      var optionsList = this.props.options;
+      // console.log(optionsList)
+      return React.createElement(
+        "div",
+        null,
+        "Options Component",
+        optionsList.map(function (option) {
+          return React.createElement(Option, { key: option, optionText: option });
+        })
+      );
+    }
+  }]);
+
+  return Options;
+}(React.Component);
+
+var Option = function (_React$Component5) {
+  _inherits(Option, _React$Component5);
 
   function Option() {
     _classCallCheck(this, Option);
@@ -108,38 +140,14 @@ var Option = function (_React$Component4) {
     key: "render",
     value: function render() {
       return React.createElement(
-        "div",
+        "p",
         null,
-        "Option Component"
+        this.props.optionText
       );
     }
   }]);
 
   return Option;
-}(React.Component);
-
-var Options = function (_React$Component5) {
-  _inherits(Options, _React$Component5);
-
-  function Options() {
-    _classCallCheck(this, Options);
-
-    return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
-  }
-
-  _createClass(Options, [{
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "div",
-        null,
-        "Options Component",
-        React.createElement(Option, null)
-      );
-    }
-  }]);
-
-  return Options;
 }(React.Component);
 
 var AddOption = function (_React$Component6) {
