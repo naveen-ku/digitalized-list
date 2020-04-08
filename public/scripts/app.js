@@ -23,7 +23,7 @@ var ToDoMixApp = function (_React$Component) {
       return React.createElement(
         "div",
         null,
-        React.createElement(Header, null),
+        React.createElement(Header, { title: "ToDo Mix App" }),
         React.createElement(Action, null),
         React.createElement(Options, null),
         React.createElement(AddOption, null)
@@ -46,13 +46,14 @@ var Header = function (_React$Component2) {
   _createClass(Header, [{
     key: "render",
     value: function render() {
+      console.log(this.props);
       return React.createElement(
         "div",
         null,
         React.createElement(
           "h1",
           null,
-          "ToDo Mix"
+          this.props.title
         ),
         React.createElement(
           "h2",

@@ -2,7 +2,7 @@ class ToDoMixApp extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="ToDo Mix App"/>
         <Action />
         <Options />
         <AddOption />
@@ -13,9 +13,10 @@ class ToDoMixApp extends React.Component {
 
 class Header extends React.Component {
   render() {
+    console.log(this.props)
     return (
       <div>
-        <h1>ToDo Mix</h1>
+        <h1>{this.props.title}</h1>
         <h2>Digitalize the day to day record.</h2>
       </div>
     );
