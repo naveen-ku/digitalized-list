@@ -1,15 +1,58 @@
 class ToDoMixApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: [],
+    };
+    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+    this.handlePick = this.handlePick.bind(this);
+    this.handleAddOption = this.handleAddOption.bind(this);
+  }
+
+  //handleDeleteOptions
+  handleDeleteOptions() {
+    this.setState(() => {
+      return {
+        options: [],
+      };
+    });
+  }
+  //handlePick
+  handlePick() {
+    const randumNum = Math.floor(Math.random() * this.state.options.length);
+    const option = this.state.options[randumNum];
+    alert(option);
+  }
+  //handleAddoption
+  handleAddOption(option) {
+    if (!option) {
+      return "Enter valid value to add item";
+    } else if (this.state.options.indexOf(option) > -1) {
+      return "This option already exists";
+    }
+    // console.log(option);
+    this.setState((prevState) => {
+      return {
+        options: prevState.options.concat(option),
+      };
+    });
+  }
   render() {
     const title = "ToDo Mix App";
     const subtitle = "Digitalize the day to day record.";
-    const options = ["One", "Two", "Three"];
 
     return (
       <div>
         <Header title={title} subtitle={subtitle} />
-        <Action />
-        <Options options={options} />
-        <AddOption />
+        <Action
+          hasOptions={this.state.options.length}
+          handlePick={this.handlePick}
+        />
+        <Options
+          options={this.state.options}
+          handleDeleteOptions={this.handleDeleteOptions}
+        />
+        <AddOption handleAddOption={this.handleAddOption} />
       </div>
     );
   }
@@ -17,7 +60,7 @@ class ToDoMixApp extends React.Component {
 
 class Header extends React.Component {
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div>
         <h1>{this.props.title}</h1>
@@ -28,34 +71,28 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
-  onRandomPick() {
-    alert("onRandomPick");
-  }
   render() {
     return (
       <div>
-        <button onClick={this.onRandomPick}>What should I do?</button>
+        <button
+          disabled={!this.props.hasOptions > 0}
+          onClick={this.props.handlePick}
+        >
+          What should I do?
+        </button>
       </div>
     );
   }
 }
 
 class Options extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleRemoveAll = this.handleRemoveAll.bind(this);
-  }
-  handleRemoveAll() {
-    console.log(this.props.options);
-    alert("Remove All");
-  }
   render() {
     // console.log(this.props.options);
     const optionsList = this.props.options;
     // console.log(optionsList)
     return (
       <div>
-        <button onClick={this.handleRemoveAll}>Remove All</button>
+        <button onClick={this.props.handleDeleteOptions}>Remove All</button>
         {optionsList.map((option) => (
           <Option key={option} optionText={option} />
         ))}
@@ -70,12 +107,23 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+  constructor(props) {
+    super(props);
+    this.submitForm = this.submitForm.bind(this);
+    this.state = {
+      error: undefined,
+    };
+  }
   submitForm(event) {
     event.preventDefault();
     const dataField = event.target.elements.option.value.trim();
-    if (dataField) {
-      alert(dataField);
-    }
+    const error = this.props.handleAddOption(dataField);
+
+    this.setState(() => {
+      return {
+        error: error,
+      };
+    });
   }
   render() {
     return (
@@ -84,6 +132,7 @@ class AddOption extends React.Component {
           <input type="text" name="option" />
           <button>Submit</button>
         </form>
+        {this.state.error && <p>{this.state.error}</p>}
       </div>
     );
   }
