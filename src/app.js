@@ -38,12 +38,12 @@ class ToDoMixApp extends React.Component {
     });
   }
   render() {
-    const title = "ToDo Mix App";
+
     const subtitle = "Digitalize the day to day record.";
 
     return (
       <div>
-        <Header title={title} subtitle={subtitle} />
+        <Header subtitle={subtitle} />
         <Action
           hasOptions={this.state.options.length}
           handlePick={this.handlePick}
@@ -79,6 +79,13 @@ const Header = (props) => {
     </div>
   );
 };
+
+//Setting up of default props value
+Header.defaultProps ={ 
+  title: "ToDo Mix App"
+}
+
+
 // class Action extends React.Component {
 //   render() {
 //     return (

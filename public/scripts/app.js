@@ -66,13 +66,13 @@ var ToDoMixApp = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var title = "ToDo Mix App";
+
       var subtitle = "Digitalize the day to day record.";
 
       return React.createElement(
         "div",
         null,
-        React.createElement(Header, { title: title, subtitle: subtitle }),
+        React.createElement(Header, { subtitle: subtitle }),
         React.createElement(Action, {
           hasOptions: this.state.options.length,
           handlePick: this.handlePick
@@ -120,23 +120,28 @@ var Header = function Header(props) {
     )
   );
 };
-// class Action extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         <button
-//           disabled={!this.props.hasOptions > 0}
-//           onClick={this.props.handlePick}
-//         >
-//           What should I do?
-//         </button>
-//       </div>
-//     );
-//   }
-// }
 
-//Used Stateless Component because here we don't need to change the state
-var Action = function Action(props) {
+//Setting up of default props value
+Header.defaultProps = {
+  title: "ToDo Mix App"
+
+  // class Action extends React.Component {
+  //   render() {
+  //     return (
+  //       <div>
+  //         <button
+  //           disabled={!this.props.hasOptions > 0}
+  //           onClick={this.props.handlePick}
+  //         >
+  //           What should I do?
+  //         </button>
+  //       </div>
+  //     );
+  //   }
+  // }
+
+  //Used Stateless Component because here we don't need to change the state
+};var Action = function Action(props) {
   return React.createElement(
     "div",
     null,
