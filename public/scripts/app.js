@@ -26,10 +26,39 @@ var ToDoMixApp = function (_React$Component) {
     return _this;
   }
 
-  //handleDeleteOptions
-
-
   _createClass(ToDoMixApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      try {
+        var json = localStorage.getItem("options");
+        var options = JSON.parse(json);
+
+        if (options) {
+          this.setState(function () {
+            return { options: options };
+          });
+        }
+      } catch (e) {
+        // DO nothing at all
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.options.length !== this.state.options.length) {
+        var json = JSON.stringify(this.state.options);
+        localStorage.setItem("options", json);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      console.log("componentWillUnmount");
+    }
+
+    //handleDeleteOptions
+
+  }, {
     key: "handleDeleteOptions",
     value: function handleDeleteOptions() {
       // this.setState(() => {
@@ -203,6 +232,11 @@ var Options = function Options(props) {
   return React.createElement(
     "div",
     null,
+    optionsList.length === 0 && React.createElement(
+      "p",
+      null,
+      "Please add options to get started."
+    ),
     React.createElement(
       "button",
       { onClick: props.handleDeleteOptions },
@@ -262,7 +296,6 @@ var AddOption = function (_React$Component2) {
       event.preventDefault();
       var dataField = event.target.elements.option.value.trim();
       var error = this.props.handleAddOption(dataField);
-      event.target.elements.option.value = "";
 
       // this.setState(() => {
       //   return {
@@ -274,6 +307,9 @@ var AddOption = function (_React$Component2) {
       this.setState(function () {
         return { error: error };
       });
+      if (!error) {
+        event.target.elements.option.value = "";
+      }
     }
   }, {
     key: "render",
