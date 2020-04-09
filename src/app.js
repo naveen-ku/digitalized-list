@@ -58,53 +58,91 @@ class ToDoMixApp extends React.Component {
   }
 }
 
-class Header extends React.Component {
-  render() {
-    // console.log(this.props);
-    return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>
-      </div>
-    );
-  }
-}
+// class Header extends React.Component {
+//   render() {
+//     // console.log(this.props);
+//     return (
+//       <div>
+//         <h1>{this.props.title}</h1>
+//         <h2>{this.props.subtitle}</h2>
+//       </div>
+//     );
+//   }
+// }
 
-class Action extends React.Component {
-  render() {
-    return (
-      <div>
-        <button
-          disabled={!this.props.hasOptions > 0}
-          onClick={this.props.handlePick}
-        >
-          What should I do?
-        </button>
-      </div>
-    );
-  }
-}
+//Used Stateless Component because here we don't need to change the state
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+    </div>
+  );
+};
+// class Action extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <button
+//           disabled={!this.props.hasOptions > 0}
+//           onClick={this.props.handlePick}
+//         >
+//           What should I do?
+//         </button>
+//       </div>
+//     );
+//   }
+// }
 
-class Options extends React.Component {
-  render() {
-    // console.log(this.props.options);
-    const optionsList = this.props.options;
-    // console.log(optionsList)
-    return (
-      <div>
-        <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-        {optionsList.map((option) => (
-          <Option key={option} optionText={option} />
-        ))}
-      </div>
-    );
-  }
-}
-class Option extends React.Component {
-  render() {
-    return <p>{this.props.optionText}</p>;
-  }
-}
+//Used Stateless Component because here we don't need to change the state
+const Action = (props) => {
+  return (
+    <div>
+      <button disabled={!props.hasOptions > 0} onClick={props.handlePick}>
+        What should I do?
+      </button>
+    </div>
+  );
+};
+
+// class Options extends React.Component {
+//   render() {
+//     // console.log(this.props.options);
+//     const optionsList = this.props.options;
+//     // console.log(optionsList)
+//     return (
+//       <div>
+//         <button onClick={this.props.handleDeleteOptions}>Remove All</button>
+//         {optionsList.map((option) => (
+//           <Option key={option} optionText={option} />
+//         ))}
+//       </div>
+//     );
+//   }
+// }
+
+//Used Stateless Component because here we don't need to change the state
+const Options = (props) => {
+  const optionsList = props.options;
+  return (
+    <div>
+      <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {optionsList.map((option) => (
+        <Option key={option} optionText={option} />
+      ))}
+    </div>
+  );
+};
+// class Option extends React.Component {
+//   render() {
+//     return <p>{this.props.optionText}</p>;
+//   }
+// }
+
+//Used Stateless Component because here we don't need to change the state
+const Option = (props) => {
+  return <p>{props.optionText}</p>;
+};
 
 class AddOption extends React.Component {
   constructor(props) {
@@ -118,7 +156,7 @@ class AddOption extends React.Component {
     event.preventDefault();
     const dataField = event.target.elements.option.value.trim();
     const error = this.props.handleAddOption(dataField);
-
+    event.target.elements.option.value = "";
     this.setState(() => {
       return {
         error: error,
