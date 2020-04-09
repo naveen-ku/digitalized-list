@@ -7,15 +7,28 @@ class ToDoMixApp extends React.Component {
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
+    this.handleDeleteOption = this.handleDeleteOption.bind(this);
   }
 
   //handleDeleteOptions
   handleDeleteOptions() {
-    this.setState(() => {
-      return {
-        options: [],
-      };
-    });
+    // this.setState(() => {
+    //   return {
+    //     options: [],
+    //   };
+    // });
+
+    //Alternate Syntax
+    this.setState(() => ({ options: [] }));
+  }
+
+  //handleDeleteOption ->Delete a particular option
+  handleDeleteOption(optionToRemove) {
+    this.setState((prevState) => ({
+      options: prevState.options.filter((option) => {
+        return optionToRemove !== option;
+      }),
+    }));
   }
   //handlePick
   handlePick() {
@@ -31,14 +44,18 @@ class ToDoMixApp extends React.Component {
       return "This option already exists";
     }
     // console.log(option);
-    this.setState((prevState) => {
-      return {
-        options: prevState.options.concat(option),
-      };
-    });
+    // this.setState((prevState) => {
+    //   return {
+    //     options: prevState.options.concat(option),
+    //   };
+    // });
+
+    //Alternate syntax
+    this.setState((prevState) => ({
+      options: prevState.options.concat(option),
+    }));
   }
   render() {
-
     const subtitle = "Digitalize the day to day record.";
 
     return (
@@ -51,6 +68,7 @@ class ToDoMixApp extends React.Component {
         <Options
           options={this.state.options}
           handleDeleteOptions={this.handleDeleteOptions}
+          handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption handleAddOption={this.handleAddOption} />
       </div>
@@ -75,16 +93,15 @@ const Header = (props) => {
   return (
     <div>
       <h1>{props.title}</h1>
-      <h2>{props.subtitle}</h2>
+      {props.subtitle && <h2>{props.subtitle}</h2>}
     </div>
   );
 };
 
 //Setting up of default props value
-Header.defaultProps ={ 
-  title: "ToDo Mix App"
-}
-
+Header.defaultProps = {
+  title: "ToDo Mix App",
+};
 
 // class Action extends React.Component {
 //   render() {
@@ -135,7 +152,11 @@ const Options = (props) => {
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
       {optionsList.map((option) => (
-        <Option key={option} optionText={option} />
+        <Option
+          key={option}
+          optionText={option}
+          handleDeleteOption={props.handleDeleteOption}
+        />
       ))}
     </div>
   );
@@ -148,7 +169,18 @@ const Options = (props) => {
 
 //Used Stateless Component because here we don't need to change the state
 const Option = (props) => {
-  return <p>{props.optionText}</p>;
+  return (
+    <p>
+      {props.optionText}
+      <button
+        onClick={(event) => {
+          props.handleDeleteOption(props.optionText);
+        }}
+      >
+        Remove
+      </button>
+    </p>
+  );
 };
 
 class AddOption extends React.Component {
@@ -164,11 +196,15 @@ class AddOption extends React.Component {
     const dataField = event.target.elements.option.value.trim();
     const error = this.props.handleAddOption(dataField);
     event.target.elements.option.value = "";
-    this.setState(() => {
-      return {
-        error: error,
-      };
-    });
+
+    // this.setState(() => {
+    //   return {
+    //     error: error,
+    //   };
+    // });
+
+    //Alternate syntax
+    this.setState(() => ({ error: error }));
   }
   render() {
     return (

@@ -22,6 +22,7 @@ var ToDoMixApp = function (_React$Component) {
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
     _this.handlePick = _this.handlePick.bind(_this);
     _this.handleAddOption = _this.handleAddOption.bind(_this);
+    _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
     return _this;
   }
 
@@ -31,9 +32,28 @@ var ToDoMixApp = function (_React$Component) {
   _createClass(ToDoMixApp, [{
     key: "handleDeleteOptions",
     value: function handleDeleteOptions() {
+      // this.setState(() => {
+      //   return {
+      //     options: [],
+      //   };
+      // });
+
+      //Alternate Syntax
       this.setState(function () {
+        return { options: [] };
+      });
+    }
+
+    //handleDeleteOption ->Delete a particular option
+
+  }, {
+    key: "handleDeleteOption",
+    value: function handleDeleteOption(optionToRemove) {
+      this.setState(function (prevState) {
         return {
-          options: []
+          options: prevState.options.filter(function (option) {
+            return optionToRemove !== option;
+          })
         };
       });
     }
@@ -57,6 +77,13 @@ var ToDoMixApp = function (_React$Component) {
         return "This option already exists";
       }
       // console.log(option);
+      // this.setState((prevState) => {
+      //   return {
+      //     options: prevState.options.concat(option),
+      //   };
+      // });
+
+      //Alternate syntax
       this.setState(function (prevState) {
         return {
           options: prevState.options.concat(option)
@@ -66,7 +93,6 @@ var ToDoMixApp = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-
       var subtitle = "Digitalize the day to day record.";
 
       return React.createElement(
@@ -79,7 +105,8 @@ var ToDoMixApp = function (_React$Component) {
         }),
         React.createElement(Options, {
           options: this.state.options,
-          handleDeleteOptions: this.handleDeleteOptions
+          handleDeleteOptions: this.handleDeleteOptions,
+          handleDeleteOption: this.handleDeleteOption
         }),
         React.createElement(AddOption, { handleAddOption: this.handleAddOption })
       );
@@ -113,7 +140,7 @@ var Header = function Header(props) {
       null,
       props.title
     ),
-    React.createElement(
+    props.subtitle && React.createElement(
       "h2",
       null,
       props.subtitle
@@ -124,24 +151,25 @@ var Header = function Header(props) {
 //Setting up of default props value
 Header.defaultProps = {
   title: "ToDo Mix App"
+};
 
-  // class Action extends React.Component {
-  //   render() {
-  //     return (
-  //       <div>
-  //         <button
-  //           disabled={!this.props.hasOptions > 0}
-  //           onClick={this.props.handlePick}
-  //         >
-  //           What should I do?
-  //         </button>
-  //       </div>
-  //     );
-  //   }
-  // }
+// class Action extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <button
+//           disabled={!this.props.hasOptions > 0}
+//           onClick={this.props.handlePick}
+//         >
+//           What should I do?
+//         </button>
+//       </div>
+//     );
+//   }
+// }
 
-  //Used Stateless Component because here we don't need to change the state
-};var Action = function Action(props) {
+//Used Stateless Component because here we don't need to change the state
+var Action = function Action(props) {
   return React.createElement(
     "div",
     null,
@@ -181,7 +209,11 @@ var Options = function Options(props) {
       "Remove All"
     ),
     optionsList.map(function (option) {
-      return React.createElement(Option, { key: option, optionText: option });
+      return React.createElement(Option, {
+        key: option,
+        optionText: option,
+        handleDeleteOption: props.handleDeleteOption
+      });
     })
   );
 };
@@ -196,7 +228,16 @@ var Option = function Option(props) {
   return React.createElement(
     "p",
     null,
-    props.optionText
+    props.optionText,
+    React.createElement(
+      "button",
+      {
+        onClick: function onClick(event) {
+          props.handleDeleteOption(props.optionText);
+        }
+      },
+      "Remove"
+    )
   );
 };
 
@@ -222,10 +263,16 @@ var AddOption = function (_React$Component2) {
       var dataField = event.target.elements.option.value.trim();
       var error = this.props.handleAddOption(dataField);
       event.target.elements.option.value = "";
+
+      // this.setState(() => {
+      //   return {
+      //     error: error,
+      //   };
+      // });
+
+      //Alternate syntax
       this.setState(function () {
-        return {
-          error: error
-        };
+        return { error: error };
       });
     }
   }, {
