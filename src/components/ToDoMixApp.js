@@ -3,17 +3,19 @@ import AddOption from "./AddOption";
 import Options from "./Options";
 import Action from "./Action";
 import Header from "./Header";
-
+import OptionModal from "./OptionModal";
 export default class ToDoMixApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       options: [],
+      selectedOption: undefined,
     };
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
     this.handleDeleteOption = this.handleDeleteOption.bind(this);
+    this.handleSelectedOption = this.handleSelectedOption.bind(this);
   }
 
   componentDidMount() {
@@ -64,7 +66,11 @@ export default class ToDoMixApp extends React.Component {
   handlePick() {
     const randumNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randumNum];
-    alert(option);
+    this.setState(() => {
+      return {
+        selectedOption: option,
+      };
+    });
   }
   //handleAddoption
   handleAddOption(option) {
@@ -85,6 +91,14 @@ export default class ToDoMixApp extends React.Component {
       options: prevState.options.concat(option),
     }));
   }
+
+  handleSelectedOption() {
+    this.setState(() => {
+      return {
+        selectedOption: undefined,
+      };
+    });
+  }
   render() {
     const subtitle = "Digitalize the day to day record.";
 
@@ -101,6 +115,10 @@ export default class ToDoMixApp extends React.Component {
           handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption handleAddOption={this.handleAddOption} />
+        <OptionModal
+          selectedOption={this.state.selectedOption}
+          handleSelectedOption={this.handleSelectedOption}
+        />
       </div>
     );
   }
