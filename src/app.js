@@ -1,7 +1,7 @@
-import validator from "validator";
 import React from "react";
 import ReactDOM from "react-dom";
+import ToDoMixApp from './components/ToDoMixApp'
 
-const app =<p>hello</p>;
-ReactDOM.render(app, document.getElementById("root"));
-
+  
+  ReactDOM.render(<ToDoMixApp />, document.getElementById("root"));
+  
