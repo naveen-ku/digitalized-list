@@ -9,8 +9,11 @@ import React from "react";
 //Used Stateless Component because here we don't need to change the state
 const Option = (props) => {
   return (
-    <p>
-      {props.optionText}
+    <div className="option">
+      <p className="option__text">
+        {props.count}. {props.optionText}
+      </p>
+
       <button
         className="button button--link"
         onClick={(event) => {
@@ -19,7 +22,7 @@ const Option = (props) => {
       >
         Remove
       </button>
-    </p>
+    </div>
   );
 };
 
