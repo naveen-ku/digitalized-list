@@ -6,6 +6,7 @@ module.exports = {
     path: path.join(__dirname, "public"),
     filename: "bundle.js",
   },
+  mode:"development",
   module: {
     rules: [
       {
@@ -19,8 +20,12 @@ module.exports = {
       },
     ],
   },
-  devtool: "cheap-module-eval-source-map",
+  devtool: "eval",
   devServer: {
-    contentBase: path.join(__dirname, "public"),
+    host: '0.0.0.0',
+    port: 8080,
+    historyApiFallback: true,
+    open: true,
+    hot: true,
   },
 };
