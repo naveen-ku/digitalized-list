@@ -28,7 +28,7 @@ const Header = (props) => {
 
 //Setting up of default props value
 Header.defaultProps = {
-  title: "ToDo Mix App",
+  title: "ToDo App",
 };
 
 export default Header;
